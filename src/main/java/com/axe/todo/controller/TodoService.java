@@ -18,13 +18,12 @@ public class TodoService {
 
     private TodoRepository repository;
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("list", repository.findAll());
         return mv;
     }
-
     @RequestMapping("/list")
     public Object listAll() {
         return repository.findAll();
@@ -33,12 +32,12 @@ public class TodoService {
     @RequestMapping("/add")
     public String add(String content) {
         repository.save(new Todo(TodoEnum.StatusTodo.getStatus(), content));
-        return "redirect:/";
+        return "redirect:/index";
     }
 
     @RequestMapping("/modify/{id}/{status}")
     public String modify(@PathVariable Long id, @PathVariable Integer status) {
         repository.updateById(id, status);
-        return "redirect:/";
+        return "redirect:/index";
     }
 }
